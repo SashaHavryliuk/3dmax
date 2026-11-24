@@ -1,0 +1,2091 @@
+<!DOCTYPE html>
+<html lang="uk">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <title>FORM — Студія 3D-візуалізації меблів</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+        * {
+            box-sizing: border-box
+        }
+
+        body {
+            margin: 0;
+            background: #111214;
+            color: #f4f4f5;
+            font-family: Inter, Arial, sans-serif;
+        }
+
+        button,
+        input {
+            font: inherit
+        }
+
+        button {
+            cursor: pointer
+        }
+
+        .app {
+            min-height: 100vh;
+            padding: 5px 7px 90px 65px
+        }
+
+        .sidebar {
+            position: fixed;
+            left: 5px;
+            top: 5px;
+            bottom: 5px;
+            width: 49px;
+            background: #191a1c;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            padding: 15px 0;
+            gap: 13px;
+            z-index: 5;
+        }
+
+        .logo {
+            font-size: 25px;
+            font-weight: 800;
+            margin-bottom: 18px
+        }
+
+        .nav {
+            border: 0;
+            background: transparent;
+            color: #888;
+            width: 39px;
+            height: 39px;
+            border-radius: 10px;
+            font-size: 19px;
+        }
+
+        .nav:hover,
+        .nav.active {
+            background: #303034;
+            color: white
+        }
+
+        .settings {
+            margin-top: auto
+        }
+
+        .hero {
+            padding: 50px 26px 24px;
+            background: radial-gradient(ellipse at 65% 0%, #49312b 0%, #262124 38%, #17181b 76%);
+            border-radius: 14px;
+        }
+
+        .topline {
+            display: flex;
+            justify-content: space-between;
+            align-items: center
+        }
+
+        .eyebrow {
+            font-size: 11px;
+            letter-spacing: 2px;
+            color: #b0a6a2
+        }
+
+        h1 {
+            font-size: 42px;
+            letter-spacing: -2px;
+            margin: 18px 0 8px
+        }
+
+        .subtitle {
+            color: #aaa;
+            font-size: 14px
+        }
+
+        .hero-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 30px;
+            gap: 15px;
+            flex-wrap: wrap
+        }
+
+        .pill,
+        .btn {
+            border: 0;
+            border-radius: 9px;
+            padding: 11px 17px;
+            background: #343437;
+            color: #eee;
+            font-size: 12px;
+        }
+
+        .btn.primary {
+            background: #e1e0e0;
+            color: #151515;
+            font-weight: 700
+        }
+
+        .btn:hover {
+            filter: brightness(1.15)
+        }
+
+        .stats {
+            display: flex;
+            gap: 22px;
+            color: #aaa;
+            font-size: 12px
+        }
+
+        .section {
+            padding: 27px 10px
+        }
+
+        .section-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 17px
+        }
+
+        h2 {
+            font-size: 19px;
+            margin: 0;
+            font-weight: 650
+        }
+
+        .muted {
+            font-size: 12px;
+            color: #858589
+        }
+
+        .filters {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 19px
+        }
+
+        .filter {
+            padding: 9px 14px;
+            border-radius: 8px;
+            border: 0;
+            background: #252629;
+            color: #aaa;
+            font-size: 12px
+        }
+
+        .filter.active {
+            background: #dedede;
+            color: #151515
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 14px
+        }
+
+        .project {
+            background: #1b1c1f;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: .2s;
+            cursor: pointer;
+            border: 1px solid #28292c
+        }
+
+        .project:hover {
+            transform: translateY(-3px);
+            border-color: #666
+        }
+
+        .project img {
+            width: 100%;
+            height: 205px;
+            object-fit: cover;
+            display: block
+        }
+
+        .project-info {
+            padding: 13px 14px 15px
+        }
+
+        .project-title {
+            font-size: 13px;
+            font-weight: 600
+        }
+
+        .project-meta {
+            display: flex;
+            justify-content: space-between;
+            color: #858589;
+            font-size: 11px;
+            margin-top: 8px
+        }
+
+        .tag {
+            font-size: 10px;
+            color: #c5a99d;
+            background: #382d2b;
+            padding: 5px 8px;
+            border-radius: 5px
+        }
+
+        .service-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px
+        }
+
+        .service {
+            background: #1c1d20;
+            padding: 20px;
+            border-radius: 12px
+        }
+
+        .service-icon {
+            font-size: 22px;
+            margin-bottom: 16px
+        }
+
+        .service h3 {
+            font-size: 14px;
+            margin: 0 0 9px
+        }
+
+        .service p {
+            font-size: 12px;
+            color: #999;
+            line-height: 1.6;
+            margin: 0
+        }
+
+        .contact {
+            margin: 5px 10px 25px;
+            padding: 28px;
+            border-radius: 13px;
+            background: linear-gradient(110deg, #302522, #202023);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px
+        }
+
+        .contact h2 {
+            font-size: 22px;
+            margin-bottom: 8px
+        }
+
+        .contact p {
+            font-size: 12px;
+            color: #aaa
+        }
+
+        .search {
+            background: #292a2e;
+            color: white;
+            border: 0;
+            border-radius: 8px;
+            padding: 11px 14px;
+            width: 210px;
+            font-size: 12px
+        }
+
+        .bottom {
+            position: fixed;
+            bottom: 5px;
+            left: 61px;
+            right: 7px;
+            height: 70px;
+            background: #272528;
+            border: 1px solid #383438;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            padding: 10px 16px;
+            gap: 13px;
+            z-index: 4
+        }
+
+        .bottom img {
+            width: 47px;
+            height: 47px;
+            object-fit: cover;
+            border-radius: 8px
+        }
+
+        .bottom-info {
+            flex: 1
+        }
+
+        .bottom-info strong {
+            font-size: 12px
+        }
+
+        .bottom-info div {
+            font-size: 11px;
+            color: #999;
+            margin-top: 4px
+        }
+
+        .bottom button {
+            background: transparent;
+            color: white;
+            border: 0;
+            font-size: 19px
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: #000c;
+            z-index: 10;
+            align-items: center;
+            justify-content: center;
+            padding: 20px
+        }
+
+        .modal-box {
+            background: #202124;
+            border-radius: 15px;
+            max-width: 750px;
+            width: 100%;
+            overflow: hidden
+        }
+
+        .modal-box img {
+            width: 100%;
+            max-height: 420px;
+            object-fit: cover
+        }
+
+        .modal-content {
+            padding: 20px
+        }
+
+        .modal-content p {
+            color: #aaa;
+            font-size: 13px;
+            line-height: 1.7
+        }
+
+        .close {
+            float: right;
+            background: #333;
+            color: white;
+            border: 0;
+            padding: 8px 12px;
+            border-radius: 7px
+        }
+
+        @media(max-width:850px) {
+            .grid {
+                grid-template-columns: repeat(2, 1fr)
+            }
+
+            .hero {
+                padding: 30px 20px
+            }
+
+            .stats {
+                gap: 10px
+            }
+        }
+
+        @media(max-width:560px) {
+            .app {
+                padding-left: 58px
+            }
+
+            .grid {
+                grid-template-columns: 1fr
+            }
+
+            .project img {
+                height: 220px
+            }
+
+            .service-grid {
+                grid-template-columns: 1fr
+            }
+
+            h1 {
+                font-size: 32px
+            }
+
+            .contact {
+                align-items: flex-start;
+                flex-direction: column
+            }
+
+            .search {
+                width: 100%
+            }
+
+            .bottom {
+                left: 59px
+            }
+
+            .stats {
+                flex-wrap: wrap
+            }
+        }
+
+        /* ==========================================
+   FORM — PREMIUM ANIMATION SYSTEM
+========================================== */
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            overflow-x: hidden;
+            cursor: none;
+            background:
+                radial-gradient(ellipse at 80% 10%, #24201f 0%, transparent 45%),
+                #111214;
+        }
+
+        /* CUSTOM CURSOR */
+
+        .cursor-dot,
+        .cursor-outline {
+            position: fixed;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 9999;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .cursor-dot {
+            width: 6px;
+            height: 6px;
+            background: #fff;
+        }
+
+        .cursor-outline {
+            width: 34px;
+            height: 34px;
+            border: 1px solid #ffffff70;
+            transition:
+                width .25s,
+                height .25s,
+                background .25s;
+        }
+
+        .cursor-outline.hover {
+            width: 65px;
+            height: 65px;
+            background: #ffffff12;
+            border-color: #fff;
+        }
+
+        /* SCROLL PROGRESS */
+
+        .progress-line {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 2px;
+            width: 0%;
+            background: linear-gradient(90deg, #a58a7c, #fff);
+            z-index: 99999;
+            box-shadow: 0 0 12px #d1a997;
+        }
+
+        /* BACKGROUND LIGHT */
+
+        .background-glow {
+            position: fixed;
+            width: 550px;
+            height: 550px;
+            border-radius: 50%;
+            background: #a16d5230;
+            filter: blur(130px);
+            pointer-events: none;
+            z-index: -1;
+            left: 50%;
+            top: 20%;
+            transform: translate(-50%, -50%);
+            animation: glowMove 12s ease-in-out infinite alternate;
+        }
+
+        @keyframes glowMove {
+            0% {
+                transform: translate(-60%, -40%) scale(.8)
+            }
+
+            100% {
+                transform: translate(30%, 30%) scale(1.3)
+            }
+        }
+
+        /* INTRO ANIMATION */
+
+        .hero {
+            position: relative;
+            overflow: hidden;
+            isolation: isolate;
+            animation: heroEnter 1.2s cubic-bezier(.16, 1, .3, 1) both;
+        }
+
+        @keyframes heroEnter {
+            from {
+                opacity: 0;
+                transform: translateY(35px);
+                filter: blur(12px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+                filter: blur(0);
+            }
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            inset: -100%;
+            background: linear-gradient(115deg,
+                    transparent 42%,
+                    #ffffff09 50%,
+                    transparent 58%);
+            animation: heroShine 8s ease-in-out infinite;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        @keyframes heroShine {
+
+            0%,
+            25% {
+                transform: translateX(-35%)
+            }
+
+            70%,
+            100% {
+                transform: translateX(35%)
+            }
+        }
+
+        .hero h1 {
+            animation: textReveal 1.2s .2s both;
+        }
+
+        .hero .subtitle {
+            animation: textReveal 1.2s .4s both;
+        }
+
+        .hero-bottom {
+            animation: textReveal 1.2s .6s both;
+        }
+
+        @keyframes textReveal {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* NAVIGATION */
+
+        .sidebar {
+            backdrop-filter: blur(20px);
+            border: 1px solid #ffffff0a;
+            box-shadow: 0 10px 40px #0005;
+        }
+
+        .nav {
+            position: relative;
+            overflow: hidden;
+            transition: .35s cubic-bezier(.2, .8, .2, 1);
+        }
+
+        .nav:hover {
+            transform: scale(1.12);
+            background: #454044;
+        }
+
+        .nav.active {
+            box-shadow: 0 0 20px #ffffff13;
+        }
+
+        .logo {
+            transition: .4s;
+        }
+
+        .logo:hover {
+            transform: rotate(-12deg) scale(1.15);
+            color: #c5a99d;
+        }
+
+        /* BUTTON ANIMATIONS */
+
+        .btn {
+            position: relative;
+            overflow: hidden;
+            transition:
+                transform .35s cubic-bezier(.2, .8, .2, 1),
+                background .3s,
+                box-shadow .3s;
+        }
+
+        .btn::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(110deg, transparent, #ffffff35, transparent);
+            transform: translateX(-120%);
+            transition: .7s;
+        }
+
+        .btn:hover::before {
+            transform: translateX(120%);
+        }
+
+        .btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px #0005;
+        }
+
+        .btn:active {
+            transform: scale(.96);
+        }
+
+        /* SECTION REVEAL */
+
+        .section,
+        .contact {
+            opacity: 0;
+            transform: translateY(45px);
+            filter: blur(5px);
+            transition:
+                opacity .9s ease,
+                transform .9s cubic-bezier(.16, 1, .3, 1),
+                filter .9s ease;
+        }
+
+        .section.visible,
+        .contact.visible {
+            opacity: 1;
+            transform: translateY(0);
+            filter: blur(0);
+        }
+
+        /* SECTION HEADINGS */
+
+        .section-head h2 {
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-head h2::after {
+            content: "";
+            display: block;
+            width: 0;
+            height: 1px;
+            background: #c5a99d;
+            margin-top: 7px;
+            transition: width .7s ease;
+        }
+
+        .section.visible .section-head h2::after {
+            width: 100%;
+        }
+
+        /* PROJECT CARDS */
+
+        .project {
+            position: relative;
+            transform-style: preserve-3d;
+            transition:
+                transform .45s cubic-bezier(.2, .8, .2, 1),
+                border-color .4s,
+                box-shadow .4s;
+        }
+
+        .project:hover {
+            border-color: #a58a7c;
+            box-shadow:
+                0 20px 50px #0007,
+                0 0 25px #b28a7620;
+        }
+
+        .project img {
+            transition:
+                transform 1s cubic-bezier(.16, 1, .3, 1),
+                filter .7s;
+        }
+
+        .project:hover img {
+            transform: scale(1.09);
+            filter: brightness(1.12);
+        }
+
+        .project-info {
+            position: relative;
+            z-index: 1;
+            transition: background .4s;
+        }
+
+        .project-title {
+            transition: letter-spacing .4s, color .4s;
+        }
+
+        .project:hover .project-title {
+            letter-spacing: .4px;
+            color: #d8b9a9;
+        }
+
+        .project-meta span:last-child {
+            transition: transform .3s, color .3s;
+        }
+
+        .project:hover .project-meta span:last-child {
+            transform: translateX(4px);
+            color: #e6c3b2;
+        }
+
+        /* PROJECT FILTERS */
+
+        .filter {
+            position: relative;
+            transition:
+                transform .3s,
+                background .3s,
+                color .3s;
+        }
+
+        .filter:hover {
+            transform: translateY(-3px);
+            background: #454044;
+            color: white;
+        }
+
+        .filter.active {
+            box-shadow: 0 5px 20px #0004;
+        }
+
+        /* SERVICES */
+
+        .service {
+            position: relative;
+            overflow: hidden;
+            border: 1px solid #ffffff08;
+            transition:
+                transform .5s cubic-bezier(.2, .8, .2, 1),
+                border-color .4s,
+                background .4s;
+        }
+
+        .service::after {
+            content: "";
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: #b68b7420;
+            filter: blur(45px);
+            right: -80px;
+            bottom: -80px;
+            transition: .5s;
+        }
+
+        .service:hover {
+            transform: translateY(-9px);
+            border-color: #a58a7c70;
+            background: #262326;
+        }
+
+        .service:hover::after {
+            transform: scale(2);
+        }
+
+        .service-icon {
+            display: inline-block;
+            transition: transform .5s;
+        }
+
+        .service:hover .service-icon {
+            transform: rotate(15deg) scale(1.2);
+            color: #d4b4a5;
+        }
+
+        /* CONTACT SECTION */
+
+        .contact {
+            position: relative;
+            overflow: hidden;
+            border: 1px solid #ffffff0a;
+        }
+
+        .contact::after {
+            content: "FORM";
+            position: absolute;
+            right: 20px;
+            bottom: -70px;
+            font-size: 180px;
+            font-weight: 800;
+            color: #ffffff06;
+            pointer-events: none;
+            transition: transform 1s;
+        }
+
+        .contact:hover::after {
+            transform: translateX(-20px);
+        }
+
+        /* BOTTOM PLAYER */
+
+        .bottom {
+            backdrop-filter: blur(25px);
+            box-shadow: 0 10px 40px #0007;
+            transition:
+                transform .4s,
+                background .4s;
+        }
+
+        .bottom:hover {
+            background: #353035;
+            transform: translateY(-3px);
+        }
+
+        .bottom img {
+            transition: transform .5s;
+        }
+
+        .bottom:hover img {
+            transform: scale(1.08);
+        }
+
+        /* MODAL */
+
+        .modal {
+            display: flex;
+            visibility: hidden;
+            opacity: 0;
+            backdrop-filter: blur(0);
+            transition:
+                opacity .4s,
+                visibility .4s,
+                backdrop-filter .4s;
+        }
+
+        .modal.open {
+            visibility: visible;
+            opacity: 1;
+            backdrop-filter: blur(12px);
+        }
+
+        .modal-box {
+            transform: translateY(35px) scale(.95);
+            opacity: 0;
+            transition:
+                transform .55s cubic-bezier(.16, 1, .3, 1),
+                opacity .4s;
+        }
+
+        .modal.open .modal-box {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+        }
+
+        .modal-box img {
+            display: block;
+            transition: transform .8s;
+        }
+
+        .close {
+            transition: transform .3s, background .3s;
+        }
+
+        .close:hover {
+            transform: rotate(90deg);
+            background: #a16d52;
+        }
+
+        /* SEARCH */
+
+        .search {
+            border: 1px solid transparent;
+            transition:
+                border .3s,
+                background .3s,
+                box-shadow .3s;
+        }
+
+        .search:focus {
+            outline: none;
+            border-color: #a58a7c;
+            background: #333034;
+            box-shadow: 0 0 0 4px #a58a7c18;
+        }
+
+        /* FLOATING DECORATION */
+
+        .floating-orb {
+            position: absolute;
+            width: 7px;
+            height: 7px;
+            background: #c5a99d;
+            border-radius: 50%;
+            box-shadow: 0 0 25px #c5a99d;
+            animation: floatOrb 5s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes floatOrb {
+
+            0%,
+            100% {
+                transform: translateY(0)
+            }
+
+            50% {
+                transform: translateY(-25px)
+            }
+        }
+
+        /* SMOOTH CARD FILTERING */
+
+        .project.hide {
+            opacity: 0;
+            transform: scale(.92);
+            filter: blur(5px);
+        }
+
+        .project.show {
+            animation: cardAppear .6s cubic-bezier(.16, 1, .3, 1) both;
+        }
+
+        @keyframes cardAppear {
+            from {
+                opacity: 0;
+                transform: translateY(25px) scale(.96);
+                filter: blur(5px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+                filter: blur(0);
+            }
+        }
+
+        /* RESPONSIVE */
+
+        @media(max-width:850px) {
+
+            .cursor-dot,
+            .cursor-outline {
+                display: none;
+            }
+
+            body {
+                cursor: auto;
+            }
+        }
+
+        @media(max-width:560px) {
+
+            .section,
+            .contact {
+                opacity: 1;
+                transform: none;
+                filter: none;
+            }
+
+            .project:hover {
+                transform: none;
+            }
+
+            .contact::after {
+                font-size: 100px;
+            }
+
+            .hero::before {
+                animation: none;
+            }
+        }
+
+        /* ACCESSIBILITY */
+
+        @media(prefers-reduced-motion:reduce) {
+
+            *,
+            *::before,
+            *::after {
+                animation-duration: .01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: .01ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
+
+
+        /* TEN-SECTION NAVIGATION + NEW CONTENT BLOCKS */
+        html { scroll-padding-top: 24px; }
+        #home, .section, .contact { scroll-margin-top: 22px; }
+
+        .sidebar {
+            width: 54px;
+            padding: 12px 0;
+            gap: 7px;
+        }
+
+        .sidebar .logo {
+            margin-bottom: 8px;
+            flex: 0 0 auto;
+        }
+
+        .sidebar .nav {
+            width: 36px;
+            height: 35px;
+            flex: 0 0 auto;
+            overflow: visible;
+            font-size: 17px;
+            border: 1px solid transparent;
+        }
+
+        .sidebar .nav.active {
+            color: #fff;
+            background: linear-gradient(135deg, #51413a, #302a29);
+            border-color: #b8958345;
+            box-shadow: inset 2px 0 #c5a99d, 0 0 20px #ffffff13;
+        }
+
+        .sidebar .nav::after {
+            content: attr(data-label);
+            position: absolute;
+            left: calc(100% + 12px);
+            top: 50%;
+            z-index: 30;
+            transform: translate(-5px, -50%);
+            padding: 8px 11px;
+            border: 1px solid #ffffff16;
+            border-radius: 8px;
+            background: rgba(30, 29, 31, .94);
+            color: #f4f0ed;
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: .2px;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            box-shadow: 0 10px 28px #0007;
+            transition: opacity .2s ease, transform .2s ease, visibility .2s ease;
+        }
+
+        .sidebar .nav:hover::after,
+        .sidebar .nav:focus-visible::after {
+            opacity: 1;
+            visibility: visible;
+            transform: translate(0, -50%);
+        }
+
+        .sidebar .nav:focus-visible {
+            outline: 1px solid #c5a99d;
+            outline-offset: 2px;
+        }
+
+        .process-grid,
+        .material-grid,
+        .advantage-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 12px;
+        }
+
+        .advantage-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+
+        .info-card {
+            min-width: 0;
+            padding: 20px;
+            border: 1px solid #ffffff0b;
+            border-radius: 12px;
+            background: linear-gradient(145deg, #202124, #191a1d);
+            transition: transform .35s ease, border-color .35s ease, background .35s ease;
+        }
+
+        .info-card:hover {
+            transform: translateY(-5px);
+            border-color: #a58a7c65;
+            background: linear-gradient(145deg, #292528, #1b1c1f);
+        }
+
+        .info-card h3 {
+            margin: 12px 0 8px;
+            font-size: 14px;
+        }
+
+        .info-card p,
+        .about-copy p,
+        .brief-grid p {
+            margin: 0;
+            color: #999;
+            font-size: 12px;
+            line-height: 1.75;
+        }
+
+        .step-number,
+        .material-mark {
+            color: #c5a99d;
+            font-size: 10px;
+            letter-spacing: 1.6px;
+        }
+
+        .material-card { min-height: 155px; }
+        .material-card h3 { margin-top: 14px; }
+        .advantage-card .service-icon { color: #c5a99d; }
+
+        /* PHOTO-RICH PORTFOLIO */
+        .service-photo,
+        .process-photo {
+            display: block;
+            width: calc(100% + 40px);
+            height: 148px;
+            margin: -20px -20px 16px;
+            object-fit: cover;
+            border-radius: 12px 12px 0 0;
+            filter: saturate(.86);
+            transition: transform .7s cubic-bezier(.16, 1, .3, 1), filter .5s;
+        }
+
+        .service:hover .service-photo,
+        .info-card:hover .process-photo {
+            transform: scale(1.035);
+            filter: saturate(1.05) brightness(1.05);
+        }
+
+        .material-photo {
+            display: block;
+            width: 100%;
+            height: 132px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            filter: saturate(.86);
+            transition: transform .6s, filter .5s;
+        }
+
+        .material-card:hover .material-photo {
+            transform: scale(1.025);
+            filter: saturate(1.05);
+        }
+
+        .about-feature {
+            display: block;
+            width: 100%;
+            height: 190px;
+            margin-top: 20px;
+            object-fit: cover;
+            border-radius: 10px;
+            border: 1px solid #ffffff16;
+        }
+
+        .project img { background: #242326; }
+        .project img[loading="lazy"] { content-visibility: auto; }
+
+        .about-panel {
+            display: grid;
+            grid-template-columns: 1fr 1.1fr;
+            gap: 30px;
+            padding: 30px;
+            border: 1px solid #ffffff0b;
+            border-radius: 14px;
+            background: radial-gradient(ellipse at 10% 0%, #49312b70, transparent 60%), #1b1c1f;
+        }
+
+        .about-panel h2 {
+            max-width: 390px;
+            margin-top: 14px;
+            font-size: 25px;
+            line-height: 1.25;
+            letter-spacing: -.7px;
+        }
+
+        .about-copy p + p { margin-top: 12px; }
+
+        .about-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 7px;
+            margin-top: 18px;
+        }
+
+        .about-tags span {
+            padding: 7px 9px;
+            border: 1px solid #ffffff12;
+            border-radius: 6px;
+            color: #cbb8ae;
+            background: #ffffff06;
+            font-size: 10px;
+        }
+
+        .faq-list {
+            display: grid;
+            gap: 9px;
+        }
+
+        .faq-item {
+            padding: 0 16px;
+            border: 1px solid #ffffff0c;
+            border-radius: 10px;
+            background: #1b1c1f;
+        }
+
+        .faq-item summary {
+            position: relative;
+            padding: 16px 28px 16px 0;
+            color: #eee;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            list-style: none;
+        }
+
+        .faq-item summary::-webkit-details-marker { display: none; }
+        .faq-item summary::after {
+            content: '+';
+            position: absolute;
+            right: 0;
+            top: 11px;
+            color: #c5a99d;
+            font-size: 20px;
+            font-weight: 400;
+        }
+        .faq-item[open] summary::after { content: '−'; }
+        .faq-item p {
+            max-width: 760px;
+            margin: 0;
+            padding: 0 24px 16px 0;
+            color: #999;
+            font-size: 12px;
+            line-height: 1.7;
+        }
+
+        .brief-panel {
+            padding: 24px;
+            border: 1px solid #ffffff0c;
+            border-radius: 13px;
+            background: linear-gradient(110deg, #302522, #202023);
+        }
+
+        .brief-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 18px;
+            margin-bottom: 22px;
+        }
+
+        .brief-grid span {
+            display: block;
+            margin-bottom: 10px;
+            color: #c5a99d;
+            font-size: 10px;
+            letter-spacing: 1.5px;
+        }
+
+        .brief-grid strong {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 13px;
+        }
+
+        @media(max-width: 1050px) {
+            .process-grid, .material-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        }
+
+        @media(max-width: 850px) {
+            .about-panel { grid-template-columns: 1fr; gap: 18px; }
+            .about-panel h2 { max-width: 600px; }
+        }
+
+        @media(max-width: 560px) {
+            .sidebar { width: 44px; gap: 4px; padding: 9px 0; }
+            .sidebar .logo { margin-bottom: 5px; font-size: 21px; }
+            .sidebar .nav { width: 33px; height: 31px; font-size: 15px; }
+            .sidebar .nav::after { left: calc(100% + 8px); }
+            .app { padding-left: 56px; }
+            .process-grid, .material-grid, .advantage-grid, .brief-grid { grid-template-columns: 1fr; }
+            .info-card { padding: 17px; }
+            .service-photo, .process-photo { width: calc(100% + 34px); margin: -17px -17px 14px; height: 132px; }
+            .material-photo { height: 170px; }
+            .about-feature { height: 165px; }
+            .about-panel, .brief-panel { padding: 21px; }
+        }
+
+        @media(max-height: 570px) and (min-width: 561px) {
+            .sidebar { gap: 3px; padding: 7px 0; }
+            .sidebar .logo { margin-bottom: 3px; font-size: 21px; }
+            .sidebar .nav { height: 30px; }
+        }
+
+    </style>
+</head>
+
+<body>
+    <aside class="sidebar" aria-label="Головна навігація">
+        <div class="logo" aria-label="FORM">F.</div>
+        <button class="nav active" type="button" data-target="home" data-label="Головна" aria-label="Головна" aria-current="page" onclick="navigateTo('home')">⌂</button>
+        <button class="nav" type="button" data-target="projects" data-label="Проєкти" aria-label="Проєкти" onclick="navigateTo('projects')">▦</button>
+        <button class="nav" type="button" data-target="services" data-label="Послуги" aria-label="Послуги" onclick="navigateTo('services')">◇</button>
+        <button class="nav" type="button" data-target="process" data-label="Процес роботи" aria-label="Процес роботи" onclick="navigateTo('process')">↗</button>
+        <button class="nav" type="button" data-target="materials" data-label="Матеріали" aria-label="Матеріали" onclick="navigateTo('materials')">▧</button>
+        <button class="nav" type="button" data-target="advantages" data-label="Переваги" aria-label="Переваги" onclick="navigateTo('advantages')">✧</button>
+        <button class="nav" type="button" data-target="about" data-label="Про студію" aria-label="Про студію" onclick="navigateTo('about')">◎</button>
+        <button class="nav" type="button" data-target="faq" data-label="Питання та відповіді" aria-label="Питання та відповіді" onclick="navigateTo('faq')">?</button>
+        <button class="nav" type="button" data-target="brief" data-label="Бриф" aria-label="Бриф" onclick="navigateTo('brief')">≡</button>
+        <button class="nav" type="button" data-target="contact" data-label="Контакти" aria-label="Контакти" onclick="navigateTo('contact')">✉</button>
+    </aside>
+
+    <main class="app">
+        <header class="hero" id="home">
+            <div class="topline">
+                <span class="eyebrow">FORM / ЦИФРОВА СТУДІЯ ІНТЕР'ЄРУ</span>
+                <span class="muted">ПОРТФОЛІО 2026</span>
+            </div>
+            <h1>3D-візуалізація<br>меблів</h1>
+            <div class="subtitle">Створюємо реалістичні зображення меблів та інтер'єрів</div>
+            <div class="hero-bottom">
+                <div style="display:flex;gap:9px">
+                    <button class="btn primary"
+                        onclick="navigateTo('projects')">Переглянути проєкти ↗</button>
+                    <button class="btn" onclick="navigateTo('contact')">Обговорити
+                        проєкт</button>
+                </div>
+                <div class="stats">
+                    <span>3ds Max · Corona Renderer</span>
+                    <span>Інтер'єри · Меблі · CGI</span>
+                </div>
+            </div>
+        </header>
+
+        <section class="section" id="projects">
+            <div class="section-head">
+                <div>
+                    <h2>Обрані проєкти</h2>
+                    <div class="muted" style="margin-top:6px">Колекція 3D-візуалізацій</div>
+                </div>
+                <input class="search" id="search" placeholder="⌕  Пошук проєктів..." oninput="filterProjects()">
+            </div>
+            <div class="filters">
+                <button class="filter active" onclick="setFilter('all',this)">Усі роботи</button>
+                <button class="filter" onclick="setFilter('Кухні',this)">Кухні</button>
+                <button class="filter" onclick="setFilter('Вітальні',this)">Вітальні</button>
+                <button class="filter" onclick="setFilter('Спальні',this)">Спальні</button>
+                <button class="filter" onclick="setFilter('Меблі',this)">Меблі</button>
+            </div>
+            <div class="grid" id="grid">
+                <article class="project" data-category="Кухні" onclick="openProject(0)">
+                    <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=900"
+                        alt="Сучасний інтер'єр кухні">
+                    <div class="project-info">
+                        <div class="project-title">Сучасна кухня / Дуб</div>
+                        <div class="project-meta"><span>Кухні</span><span>3D-візуалізація ↗</span></div>
+                    </div>
+                </article>
+                <article class="project" data-category="Вітальні" onclick="openProject(1)">
+                    <img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=900"
+                        alt="Дизайнерська вітальня">
+                    <div class="project-info">
+                        <div class="project-title">Мінімалістична вітальня</div>
+                        <div class="project-meta"><span>Вітальні</span><span>3D-візуалізація ↗</span></div>
+                    </div>
+                </article>
+                <article class="project" data-category="Спальні" onclick="openProject(2)">
+                    <img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=900" alt="Спальня">
+                    <div class="project-info">
+                        <div class="project-title">Колекція затишних спалень</div>
+                        <div class="project-meta"><span>Спальні</span><span>3D-візуалізація ↗</span></div>
+                    </div>
+                </article>
+                <article class="project" data-category="Меблі" onclick="openProject(3)">
+                    <img src="https://images.unsplash.com/photo-1592078615290-033ee584e267?w=900"
+                        alt="Дизайнерське крісло">
+                    <div class="project-info">
+                        <div class="project-title">Крісло для відпочинку / Дизайн</div>
+                        <div class="project-meta"><span>Меблі</span><span>Предметна CGI-візуалізація ↗</span></div>
+                    </div>
+                </article>
+                <article class="project" data-category="Меблі" onclick="openProject(4)">
+                    <img src="https://images.unsplash.com/photo-1538688423619-a81d3f23454b?w=900"
+                        alt="Меблі в інтер'єрі">
+                    <div class="project-info">
+                        <div class="project-title">Сучасні меблі</div>
+                        <div class="project-meta"><span>Меблі</span><span>Предметна CGI-візуалізація ↗</span></div>
+                    </div>
+                </article>
+                <article class="project" data-category="Вітальні" onclick="openProject(5)">
+                    <img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=900" alt="Сучасний інтер'єр" loading="lazy" decoding="async">
+                    <div class="project-info">
+                        <div class="project-title">Простір у природному стилі</div>
+                        <div class="project-meta"><span>Вітальні</span><span>3D-візуалізація ↗</span></div>
+                    </div>
+                </article>
+                <article class="project" data-category="Кухні" onclick="openProject(6)">
+                    <img src="https://images.unsplash.com/photo-1769326541248-5e09a8ace25b?auto=format&amp;fit=crop&amp;w=1000&amp;q=85" alt="Кухня з дерев'яними фасадами та мармуровим островом" loading="lazy" decoding="async">
+                    <div class="project-info">
+                        <div class="project-title">Кухня / Теплий мінімалізм</div>
+                        <div class="project-meta"><span>Кухні</span><span>3D-візуалізація ↗</span></div>
+                    </div>
+                </article>
+                <article class="project" data-category="Вітальні" onclick="openProject(7)">
+                    <img src="https://images.unsplash.com/photo-1771888703723-01d85da1dae1?auto=format&amp;fit=crop&amp;w=1000&amp;q=85" alt="Вітальня з м'якими меблями у теплих відтінках" loading="lazy" decoding="async">
+                    <div class="project-info">
+                        <div class="project-title">Вітальня / М'які форми</div>
+                        <div class="project-meta"><span>Вітальні</span><span>3D-візуалізація ↗</span></div>
+                    </div>
+                </article>
+                <article class="project" data-category="Спальні" onclick="openProject(8)">
+                    <img src="https://images.unsplash.com/photo-1777880305920-e542f575f4e9?auto=format&amp;fit=crop&amp;w=1000&amp;q=85" alt="Спальня з дерев'яними панелями та м'яким підсвічуванням" loading="lazy" decoding="async">
+                    <div class="project-info">
+                        <div class="project-title">Спальня / Теплий дуб</div>
+                        <div class="project-meta"><span>Спальні</span><span>3D-візуалізація ↗</span></div>
+                    </div>
+                </article>
+                <article class="project" data-category="Спальні" onclick="openProject(9)">
+                    <img src="https://images.unsplash.com/photo-1779903726446-6f796d533d47?auto=format&amp;fit=crop&amp;w=1000&amp;q=85" alt="Світла спальня з бежевим ліжком" loading="lazy" decoding="async">
+                    <div class="project-info">
+                        <div class="project-title">Спальня / Спокійні фактури</div>
+                        <div class="project-meta"><span>Спальні</span><span>3D-візуалізація ↗</span></div>
+                    </div>
+                </article>
+                <article class="project" data-category="Вітальні" onclick="openProject(10)">
+                    <img src="https://images.unsplash.com/photo-1762529716272-b316f61502e7?auto=format&amp;fit=crop&amp;w=1000&amp;q=85" alt="Мінімалістична вітальня з природними матеріалами" loading="lazy" decoding="async">
+                    <div class="project-info">
+                        <div class="project-title">Вітальня / Природне світло</div>
+                        <div class="project-meta"><span>Вітальні</span><span>3D-візуалізація ↗</span></div>
+                    </div>
+                </article>
+                <article class="project" data-category="Меблі" onclick="openProject(11)">
+                    <img src="https://images.unsplash.com/photo-1759735218086-67f9f853ab8b?auto=format&amp;fit=crop&amp;w=1000&amp;q=85" alt="Сучасна меблева композиція у світлих тонах" loading="lazy" decoding="async">
+                    <div class="project-info">
+                        <div class="project-title">Меблева композиція / Лаконічність</div>
+                        <div class="project-meta"><span>Меблі</span><span>Предметна CGI-візуалізація ↗</span></div>
+                    </div>
+                </article>
+                <article class="project" data-category="Меблі" onclick="openProject(12)">
+                    <img src="https://images.unsplash.com/photo-1772475385327-ae6212f900aa?auto=format&amp;fit=crop&amp;w=1000&amp;q=85" alt="Меблі з поєднанням дерева та світлої оббивки" loading="lazy" decoding="async">
+                    <div class="project-info">
+                        <div class="project-title">Меблі / Світлий дуб</div>
+                        <div class="project-meta"><span>Меблі</span><span>Предметна CGI-візуалізація ↗</span></div>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section class="section" id="services">
+            <div class="section-head">
+                <h2>Наші послуги</h2><span class="muted">НАШІ ПОСЛУГИ</span>
+            </div>
+            <div class="service-grid">
+                <div class="service">
+                    <img class="service-photo" src="https://images.unsplash.com/photo-1592078615290-033ee584e267?w=900" alt="Дизайнерське крісло крупним планом" loading="lazy" decoding="async">
+                    <div class="service-icon">◈</div>
+                    <h3>3D-моделювання</h3>
+                    <p>Створення точних тривимірних моделей меблів за кресленнями, фотографіями та ескізами.</p>
+                </div>
+                <div class="service">
+                    <img class="service-photo" src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=900" alt="Фотореалістична кухня з натуральними матеріалами" loading="lazy" decoding="async">
+                    <div class="service-icon">◉</div>
+                    <h3>Фотореалістичний рендеринг</h3>
+                    <p>Реалістичні матеріали, текстури, освітлення та деталізація в Corona Renderer.</p>
+                </div>
+                <div class="service">
+                    <img class="service-photo" src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=900" alt="Інтер'єр для візуальної презентації" loading="lazy" decoding="async">
+                    <div class="service-icon">▧</div>
+                    <h3>Візуалізація каталогів</h3>
+                    <p>Комерційні зображення меблів для сайтів, каталогів і презентацій.</p>
+                </div>
+            </div>
+        </section>
+
+
+        <section class="section" id="process">
+            <div class="section-head">
+                <div>
+                    <h2>Як відбувається робота</h2>
+                    <div class="muted" style="margin-top:6px">Зрозумілий шлях від ідеї до готового зображення</div>
+                </div>
+                <span class="muted">04 ЕТАПИ</span>
+            </div>
+            <div class="process-grid">
+                <article class="info-card step-card">
+                    <img class="process-photo" src="https://images.unsplash.com/photo-1769326541248-5e09a8ace25b?auto=format&amp;fit=crop&amp;w=700&amp;q=80" alt="Референс кухонного інтер’єру" loading="lazy" decoding="async">
+                    
+                    
+                    
+                    <span class="step-number">01</span>
+                    <h3>Знайомство з ідеєю</h3>
+                    <p>Обговорюємо задачу, призначення зображень і бажаний візуальний напрям.</p>
+                </article>
+                <article class="info-card step-card">
+                    <img class="process-photo" src="https://images.unsplash.com/photo-1777880305920-e542f575f4e9?auto=format&amp;fit=crop&amp;w=700&amp;q=80" alt="Деталі моделі та меблів" loading="lazy" decoding="async">
+                    <span class="step-number">02</span>
+                    <h3>3D-моделювання</h3>
+                    <p>Готуємо тривимірну модель за кресленнями, фотографіями або ескізами.</p>
+                </article>
+                <article class="info-card step-card">
+                    <img class="process-photo" src="https://images.unsplash.com/photo-1779903726446-6f796d533d47?auto=format&amp;fit=crop&amp;w=700&amp;q=80" alt="Вибір матеріалів та фактур" loading="lazy" decoding="async">
+                    <span class="step-number">03</span>
+                    <h3>Матеріали та світло</h3>
+                    <p>Налаштовуємо фактури, відтінки, освітлення й композицію кадру.</p>
+                </article>
+                <article class="info-card step-card">
+                    <img class="process-photo" src="https://images.unsplash.com/photo-1765547090903-348b711f0eee?auto=format&amp;fit=crop&amp;w=700&amp;q=80" alt="Фінальний інтер’єрний кадр" loading="lazy" decoding="async">
+                    <span class="step-number">04</span>
+                    <h3>Фінальна візуалізація</h3>
+                    <p>Створюємо готові зображення для презентації, сайту або каталогу.</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="section" id="materials">
+            <div class="section-head">
+                <div>
+                    <h2>Матеріали та фактури</h2>
+                    <div class="muted" style="margin-top:6px">Деталі, з яких складається переконливий образ</div>
+                </div>
+                <span class="muted">SURFACES / DETAILS</span>
+            </div>
+            <div class="material-grid">
+                <article class="info-card material-card">
+                    <img class="material-photo" src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=900" alt="Тепла дерев’яна фактура" loading="lazy" decoding="async">
+                    
+                    
+                    
+                    <div class="material-mark">01 / WOOD</div>
+                    <h3>Дерево та шпон</h3>
+                    <p>Напрям волокон, природний малюнок, тон і характер поверхні.</p>
+                </article>
+                <article class="info-card material-card">
+                    <img class="material-photo" src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=900" alt="М’яка текстильна фактура в інтер’єрі" loading="lazy" decoding="async">
+                    <div class="material-mark">02 / TEXTILE</div>
+                    <h3>Тканини</h3>
+                    <p>Фактура оббивки, м'якість форми та нюанси кольору.</p>
+                </article>
+                <article class="info-card material-card">
+                    <img class="material-photo" src="https://images.unsplash.com/photo-1538688423619-a81d3f23454b?w=900" alt="Металеві та дерев’яні деталі меблів" loading="lazy" decoding="async">
+                    <div class="material-mark">03 / METAL</div>
+                    <h3>Метал</h3>
+                    <p>Матова, сатинована або відбивна поверхня та її взаємодія зі світлом.</p>
+                </article>
+                <article class="info-card material-card">
+                    <img class="material-photo" src="https://stavrosdecor.com/upload/webp_image/bazis-mebelschik-10-materialy-professionalnyy-podkhod-k-sozdaniy_1.webp" alt="Зразки дерева, металу, тканини та каменю" loading="lazy" decoding="async">
+                    <div class="material-mark">04 / GLASS</div>
+                    <h3>Скло та камінь</h3>
+                    <p>Прозорість, відбиття, природний рисунок і глибина матеріалу.</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="section" id="advantages">
+            <div class="section-head">
+                <div>
+                    <h2>Що дає 3D-візуалізація</h2>
+                    <div class="muted" style="margin-top:6px">Більше ясності для продукту та його презентації</div>
+                </div>
+            </div>
+            <div class="advantage-grid">
+                <article class="info-card advantage-card">
+                    <div class="service-icon">⌖</div>
+                    <h3>Увага до деталей</h3>
+                    <p>Можна показати форму, конструкцію, пропорції та особливості оздоблення в одному кадрі.</p>
+                </article>
+                <article class="info-card advantage-card">
+                    <div class="service-icon">▤</div>
+                    <h3>Єдиний стиль</h3>
+                    <p>Візуальний напрям допомагає зібрати цілісну серію зображень для лінійки меблів.</p>
+                </article>
+                <article class="info-card advantage-card">
+                    <div class="service-icon">◇</div>
+                    <h3>Готовність до презентації</h3>
+                    <p>Зображення можна використовувати в онлайн-каталогах, на сайті та в презентаційних матеріалах.</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="section" id="about">
+            <div class="about-panel">
+                <div>
+                    <div class="eyebrow">ABOUT FORM / DIGITAL CRAFT</div>
+                    <h2>Студія, що працює з формою та світлом</h2>
+                    <img class="about-feature" src="https://images.unsplash.com/photo-1772475385327-ae6212f900aa?auto=format&amp;fit=crop&amp;w=900&amp;q=85" alt="Сучасні меблі у просторому інтер’єрі" loading="lazy" decoding="async">
+                </div>
+                <div class="about-copy">
+                    <p>FORM — студія 3D-візуалізації меблів та інтер'єрів. Ми перетворюємо креслення, фотографії й ескізи на зрозумілі, деталізовані зображення.</p>
+                    <p>У роботі використовуємо 3ds Max та Corona Renderer, приділяючи увагу матеріалам, освітленню й точності форми.</p>
+                    <div class="about-tags">
+                        <span>3ds Max</span><span>Corona Renderer</span><span>Furniture CGI</span><span>Interior</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="faq">
+            <div class="section-head">
+                <div>
+                    <h2>Часті запитання</h2>
+                    <div class="muted" style="margin-top:6px">Коротко про формат співпраці</div>
+                </div>
+                <span class="muted">FAQ</span>
+            </div>
+            <div class="faq-list">
+                <details class="faq-item">
+                    <summary>Які матеріали потрібні для старту?</summary>
+                    <p>Можна надіслати креслення, фотографії, ескізи або референси. Чим зрозуміліше описані розміри та побажання, тим легше визначити задачу.</p>
+                </details>
+                <details class="faq-item">
+                    <summary>Що можна візуалізувати?</summary>
+                    <p>Окремі предмети меблів, меблеві колекції та інтер'єрні простори.</p>
+                </details>
+                <details class="faq-item">
+                    <summary>Де можна використовувати готові зображення?</summary>
+                    <p>Для сайтів, онлайн-каталогів, презентацій та інших комерційних матеріалів.</p>
+                </details>
+                <details class="faq-item">
+                    <summary>Як обговорити свій проєкт?</summary>
+                    <p>Перейдіть до розділу «Бриф» і підготуйте короткий опис задачі, а потім зв'яжіться зі студією через контакти.</p>
+                </details>
+            </div>
+        </section>
+
+        <section class="section" id="brief">
+            <div class="section-head">
+                <div>
+                    <h2>Підготуйте короткий бриф</h2>
+                    <div class="muted" style="margin-top:6px">Кілька деталей допоможуть швидше зрозуміти вашу задачу</div>
+                </div>
+                <span class="muted">PROJECT START</span>
+            </div>
+            <div class="brief-panel">
+                <div class="brief-grid">
+                    <div><span>01</span><strong>Що візуалізуємо?</strong><p>Меблі, окремий предмет чи інтер'єр.</p></div>
+                    <div><span>02</span><strong>Які є матеріали?</strong><p>Креслення, розміри, фото або ескізи.</p></div>
+                    <div><span>03</span><strong>Який потрібен результат?</strong><p>Кадри для сайту, каталогу чи презентації.</p></div>
+                </div>
+                <button class="btn primary" type="button" onclick="navigateTo('contact')">Перейти до контактів ↗</button>
+            </div>
+        </section>
+
+        <section class="contact" id="contact">
+            <div>
+                <div class="eyebrow">СТВОРІМО ЩОСЬ ОСОБЛИВЕ</div>
+                <h2>Маєте проєкт?</h2>
+                <p>Перетворімо вашу ідею на реалістичну 3D-візуалізацію.</p>
+            </div>
+            <a href="mailto:ulyanakostenko@gmail.com" style="text-decoration:none"><button class="btn primary">Зв'язатися з
+                    нами ↗</button></a>
+        </section>
+    </main>
+
+    <div class="bottom">
+        <img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=150" alt="Попередній перегляд">
+        <div class="bottom-info"><strong>FORM — 3D-студія</strong>
+            <div>Візуалізація меблів · 3ds Max</div>
+        </div>
+        <button onclick="navigateTo('projects')">▤</button>
+        <button onclick="navigateTo('contact')">↗</button>
+    </div>
+
+    <div class="modal" id="modal" onclick="if(event.target===this)this.style.display='none'">
+        <div class="modal-box">
+            <button class="close" onclick="document.querySelector('#modal').style.display='none'">✕</button>
+            <img id="modalImg" src="" alt="Проєкт">
+            <div class="modal-content">
+                <h2 id="modalTitle"></h2>
+                <p id="modalDesc"></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const projects = [
+            ['Сучасна кухня / Дуб', 'Кухня в сучасному мінімалістичному стилі. Візуалізація матеріалів, меблів та освітлення.'],
+            ['Мінімалістична вітальня', 'Сучасна вітальня з акцентом на фактури, природне світло та композицію.'],
+            ['Колекція затишних спалень', 'Візуалізація спальні з м’якими матеріалами та спокійною кольоровою гамою.'],
+            ['Крісло для відпочинку / Дизайн', 'Предметна візуалізація дизайнерського крісла.'],
+            ['Сучасні меблі', 'Колекція сучасних меблів та предметів інтер’єру.'],
+            ['Простір у природному стилі', 'Візуалізація інтер’єру з використанням натуральних матеріалів.'],
+            ['Кухня / Теплий мінімалізм', 'Кухонний простір із дерев’яними фасадами, виразним каменем та м’яким природним світлом.'],
+            ['Вітальня / М’які форми', 'Затишна композиція з плавними силуетами, світлою оббивкою та теплими відтінками.'],
+            ['Спальня / Теплий дуб', 'Спокійна спальня з дерев’яними панелями, вбудованим підсвічуванням та лаконічними меблями.'],
+            ['Спальня / Спокійні фактури', 'Світла спальня з м’яким текстилем, природними відтінками та мінімалістичними деталями.'],
+            ['Вітальня / Природне світло', 'Інтер’єрна композиція, в якій акцент зроблено на денному світлі та природних матеріалах.'],
+            ['Меблева композиція / Лаконічність', 'Добірка меблевих форм для сучасного простору та предметної презентації.'],
+            ['Меблі / Світлий дуб', 'Поєднання світлого дерева, тактильних поверхонь і стриманого сучасного дизайну.']
+        ];
+
+        let current = 'all';
+
+        function setFilter(category, button) {
+            current = category;
+            document.querySelectorAll('.filter').forEach(x => x.classList.remove('active'));
+            button.classList.add('active');
+            filterProjects();
+        }
+
+        function filterProjects() {
+            const q = document.querySelector('#search').value.toLowerCase();
+            document.querySelectorAll('.project').forEach(el => {
+                const category = el.dataset.category;
+                const title = el.querySelector('.project-title').textContent.toLowerCase();
+                el.style.display = (current === 'all' || category === current) && title.includes(q) ? 'block' : 'none';
+            });
+        }
+
+        function openProject(i) {
+            document.querySelector('#modalImg').src = document.querySelectorAll('.project img')[i].src;
+            document.querySelector('#modalTitle').textContent = projects[i][0];
+            document.querySelector('#modalDesc').textContent = projects[i][1];
+            document.querySelector('#modal').style.display = 'flex';
+        }
+
+        /* ==========================================
+           FORM — INTERACTIVE ANIMATION ENGINE
+        ========================================== */
+
+        // CURSOR
+
+        const cursorDot = document.createElement('div');
+        const cursorOutline = document.createElement('div');
+
+        cursorDot.className = 'cursor-dot';
+        cursorOutline.className = 'cursor-outline';
+
+        document.body.append(cursorDot, cursorOutline);
+
+        let mouseX = 0;
+        let mouseY = 0;
+        let outlineX = 0;
+        let outlineY = 0;
+
+        document.addEventListener('mousemove', e => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+
+            cursorDot.style.left = mouseX + 'px';
+            cursorDot.style.top = mouseY + 'px';
+        });
+
+        function animateCursor() {
+            outlineX += (mouseX - outlineX) * .15;
+            outlineY += (mouseY - outlineY) * .15;
+
+            cursorOutline.style.left = outlineX + 'px';
+            cursorOutline.style.top = outlineY + 'px';
+
+            requestAnimationFrame(animateCursor);
+        }
+
+        animateCursor();
+
+        document.querySelectorAll(
+            'a,button,.project,.service,input'
+        ).forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                cursorOutline.classList.add('hover');
+            });
+
+            el.addEventListener('mouseleave', () => {
+                cursorOutline.classList.remove('hover');
+            });
+        });
+
+
+        // SCROLL PROGRESS
+
+        const progress = document.createElement('div');
+        progress.className = 'progress-line';
+        document.body.appendChild(progress);
+
+        window.addEventListener('scroll', () => {
+            const maxScroll =
+                document.documentElement.scrollHeight - window.innerHeight;
+
+            const percent = maxScroll > 0
+                ? (window.scrollY / maxScroll) * 100
+                : 0;
+
+            progress.style.width = percent + '%';
+        }, {passive: true});
+
+
+        // BACKGROUND GLOW
+
+        const glow = document.createElement('div');
+        glow.className = 'background-glow';
+        document.body.prepend(glow);
+
+        document.addEventListener('mousemove', e => {
+            const x = e.clientX / window.innerWidth;
+            const y = e.clientY / window.innerHeight;
+
+            glow.style.left = (x * 100) + '%';
+            glow.style.top = (y * 100) + '%';
+        });
+
+
+        // REVEAL ON SCROLL
+
+        const revealObserver = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: .12
+        });
+
+        document.querySelectorAll('.section,.contact').forEach(el => {
+            revealObserver.observe(el);
+        });
+
+
+        // PROJECT 3D TILT
+
+        document.querySelectorAll('.project').forEach(card => {
+            card.addEventListener('mousemove', e => {
+                if (window.innerWidth < 850) return;
+
+                const rect = card.getBoundingClientRect();
+
+                const x = (e.clientX - rect.left) / rect.width;
+                const y = (e.clientY - rect.top) / rect.height;
+
+                const rotateY = (x - .5) * 8;
+                const rotateX = (.5 - y) * 8;
+
+                card.style.transform =
+                    `perspective(900px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-4px)`;
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.style.transform =
+                    'perspective(900px) rotateX(0) rotateY(0) translateY(0)';
+            });
+        });
+
+
+        // MAGNETIC BUTTONS
+
+        document.querySelectorAll('.btn').forEach(btn => {
+            btn.addEventListener('mousemove', e => {
+                if (window.innerWidth < 850) return;
+
+                const rect = btn.getBoundingClientRect();
+
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+
+                btn.style.transform =
+                    `translate(${x * .12}px,${y * .12}px)`;
+            });
+
+            btn.addEventListener('mouseleave', () => {
+                btn.style.transform = '';
+            });
+        });
+
+
+        // PROJECT IMAGE PARALLAX
+
+        document.querySelectorAll('.project img').forEach(img => {
+            img.addEventListener('mousemove', e => {
+                if (window.innerWidth < 850) return;
+
+                const rect = img.getBoundingClientRect();
+
+                const x = (e.clientX - rect.left) / rect.width - .5;
+                const y = (e.clientY - rect.top) / rect.height - .5;
+
+                img.style.transform =
+                    `scale(1.1) translate(${x * 10}px,${y * 10}px)`;
+            });
+
+            img.addEventListener('mouseleave', () => {
+                img.style.transform = '';
+            });
+        });
+
+
+        // ANIMATED PROJECT FILTER
+
+        const originalFilterProjects = filterProjects;
+
+        filterProjects = function () {
+            const q = document.querySelector('#search').value.toLowerCase();
+
+            document.querySelectorAll('.project').forEach((el, i) => {
+                const category = el.dataset.category;
+                const title = el.querySelector('.project-title').textContent.toLowerCase();
+
+                const matches =
+                    (current === 'all' || category === current) &&
+                    title.includes(q);
+
+                if (matches) {
+                    el.style.display = 'block';
+                    el.classList.remove('hide');
+                    el.classList.remove('show');
+
+                    void el.offsetWidth;
+                    el.classList.add('show');
+                } else {
+                    el.classList.remove('show');
+                    el.classList.add('hide');
+                    el.style.display = 'none';
+                }
+            });
+        };
+
+
+        // MODAL ANIMATION
+
+        const originalOpenProject = openProject;
+
+        openProject = function (i) {
+            originalOpenProject(i);
+
+            const modal = document.querySelector('#modal');
+
+            modal.style.display = 'flex';
+
+            requestAnimationFrame(() => {
+                modal.classList.add('open');
+            });
+
+            document.body.style.overflow = 'hidden';
+        };
+
+        function closeProjectModal() {
+            const modal = document.querySelector('#modal');
+
+            modal.classList.remove('open');
+            document.body.style.overflow = '';
+
+            setTimeout(() => {
+                if (!modal.classList.contains('open')) {
+                    modal.style.display = 'none';
+                }
+            }, 450);
+        }
+
+        document.querySelector('.close').onclick = closeProjectModal;
+
+        document.querySelector('#modal').addEventListener('click', e => {
+            if (e.target.id === 'modal') {
+                closeProjectModal();
+            }
+        });
+
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape') {
+                closeProjectModal();
+            }
+        });
+
+
+        // FLOATING ORBS
+
+        for (let i = 0; i < 8; i++) {
+            const orb = document.createElement('div');
+
+            orb.className = 'floating-orb';
+
+            orb.style.left = (10 + Math.random() * 80) + '%';
+            orb.style.top = (10 + Math.random() * 80) + '%';
+            orb.style.animationDelay = (Math.random() * 5) + 's';
+            orb.style.opacity = '.25';
+
+            document.querySelector('.hero').appendChild(orb);
+        }
+
+
+        // TEN-SECTION NAVIGATION
+
+        function navigateTo(sectionId) {
+            const target = document.getElementById(sectionId);
+            if (!target) return;
+
+            target.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+
+        const sections = document.querySelectorAll(
+            '#home,#projects,#services,#process,#materials,#advantages,#about,#faq,#brief,#contact'
+        );
+        const navButtons = document.querySelectorAll('.sidebar .nav[data-target]');
+
+        function setActiveNavigation(sectionId) {
+            navButtons.forEach(button => {
+                const isActive = button.dataset.target === sectionId;
+                button.classList.toggle('active', isActive);
+                if (isActive) {
+                    button.setAttribute('aria-current', 'page');
+                } else {
+                    button.removeAttribute('aria-current');
+                }
+            });
+        }
+
+        function updateActiveNavigation() {
+            const marker = window.scrollY + window.innerHeight * 0.36;
+            let activeId = 'home';
+
+            sections.forEach(section => {
+                if (section.offsetTop <= marker) activeId = section.id;
+            });
+
+            setActiveNavigation(activeId);
+        }
+
+        window.addEventListener('scroll', updateActiveNavigation, { passive: true });
+        window.addEventListener('resize', updateActiveNavigation);
+        updateActiveNavigation();
+
+
+        // SMOOTH SCROLL FOR ALL ANCHORS
+
+        document.querySelectorAll('a[href^="#"]').forEach(link => {
+            link.addEventListener('click', e => {
+                const target = document.querySelector(link.getAttribute('href'));
+
+                if (target) {
+                    e.preventDefault();
+
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+    </script>
+
+
+</body>
+
+</html>
